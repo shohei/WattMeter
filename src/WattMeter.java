@@ -18,7 +18,7 @@ public class WattMeter extends PApplet {
 	}
 	
 	public void postData() throws IOException {
-		String urlString = "http://127.0.0.1:3000/add?";
+		String urlString = "http://bicyclemeter.herokuapp.com/add?";
         String postStr = "power="+power+"&battery="+battery;//POSTするデータ
         String dataStr = urlString + postStr;
         //System.out.println(dataStr);
