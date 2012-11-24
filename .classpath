@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Applications/eclipse/external_jar/jericho-html-3.3/dist/jericho-html-3.3.jar"/>
+	<classpathentry kind="lib" path="/Applications/eclipse/external_jar/processing/RXTXcomm.jar"/>
+	<classpathentry kind="lib" path="/Applications/eclipse/external_jar/processing/serial.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
