@@ -8,18 +8,14 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 
 public class WattMeter extends PApplet {
-	float power = 100;
-	float battery = 100;	
+	float power = 0;
+	float battery = 0;	
 	Serial myPort;
 
-	public void getValue(){
-		power = 0;
-		battery = 0;
-	}
 	
-	public void postData() throws IOException {
+	public void postData(float battery_) throws IOException {
 		String urlString = "http://bicyclemeter.herokuapp.com/add?";
-        String postStr = "power="+power+"&battery="+battery;//POSTするデータ
+        String postStr = "power="+power+"&battery="+battery_;//POSTするデータ
         String dataStr = urlString + postStr;
         //System.out.println(dataStr);
 
@@ -33,32 +29,32 @@ public class WattMeter extends PApplet {
         //while((line = reader.readLine()) != null)
         //	xml += line;
         //System.out.println(xml);
-        reader.close();
-	
+        reader.close();	
 	}
 	
 	public void setup()
   {
 		myPort=new Serial(this,"/dev/tty.usbmodemfd121",9600);
 		size(400, 400);
-		try {
-			postData();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		frameRate(1);
   }
 
-   public int serialEvent(){
-     int x_;
+   public float serialEvent(){
+     float x_;
      x_=myPort.read();
-     //println(x_);
      return x_;
-  }
+   }
 	
 	public void draw()
   {
-    	  
+		final float calib = (float) 1.0;//キャリブレーションの倍率
+		float battery_ = serialEvent() * calib;
+		try {
+			postData(battery_);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
   }
   public static void main(String args[]){
 	    PApplet.main(new String[] { "--present", "WattMeter" });
